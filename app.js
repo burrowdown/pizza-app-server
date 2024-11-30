@@ -64,12 +64,16 @@ app.post("/order", async (req, res) => {
   }
 })
 
+let dbConnected = false
 export default async function handler(req, res) {
-  try {
-    await dbConnect()
-  } catch (error) {
-    console.error("Database connection failed:", error)
-    return res.status(500).json({ error: "Internal server error" })
+  if (!dbConnected) {
+    try {
+      await dbConnect()
+      dbConnected = true
+    } catch (error) {
+      console.error("Database connection failed:", error)
+      return res.status(500).json({ error: "Internal server error" })
+    }
   }
 
   app(req, res)
