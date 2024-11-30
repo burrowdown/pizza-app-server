@@ -5,9 +5,6 @@ import Topping from "./Topping.js"
 const PizzaOrder = new mongoose.Schema(
   {
     size: {
-      // TODO: add sizes to DB
-      // type: mongoose.Schema.Types.ObjectId,
-      // ref: "PizzaSize",
       type: String,
       enum: ["small", "medium", "large", "extraLarge"],
       required: true,
@@ -36,9 +33,6 @@ const PizzaOrder = new mongoose.Schema(
 // pre-validation hook to calculate total price
 PizzaOrder.pre("validate", async function (next) {
   try {
-    // TODO: add sizes to DB
-    // const size = await mongoose.model("PizzaSize").findById(this.size)
-
     // Fetch the size price
     const basePrice = pizzaPrices.basePrices[this.size]
 

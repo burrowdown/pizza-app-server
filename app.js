@@ -3,7 +3,6 @@ import express from "express"
 import cors from "cors"
 const app = express()
 import Topping from "./models/Topping.js"
-import PizzaSize from "./models/PizzaSize.js"
 import PizzaOrder from "./models/PizzaOrder.js"
 import { dbConnect } from "./db.js"
 
@@ -31,24 +30,10 @@ app.get("/toppings", async (req, res) => {
   }
 })
 
-// TODO: add sizes to DB
-// app.get("/sizes", async (req, res) => {
-//   try {
-//     const sizes = await PizzaSize.find(filter)
-//     res.json(sizes)
-//   } catch (error) {
-//     console.error("Error fetching sizes:", error)
-//     res.status(500).json({ message: "Server error fetching sizes" })
-//   }
-// })
-
 app.post("/order", async (req, res) => {
   try {
     const { toppings, size } = req.body
     if (!size) res.status(400).json({ message: "Pizza size is required" })
-
-    // const basePrice = pizzaPrices.basePrices[size]
-    // const price = pizzaPrices.getPrice(toppings, size)
 
     const newOrder = new PizzaOrder({ toppings, size })
     const savedOrder = await newOrder.save()
