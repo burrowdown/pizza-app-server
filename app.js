@@ -8,6 +8,10 @@ import PizzaOrder from "./models/PizzaOrder.js"
 app.use(cors())
 app.use(express.json())
 
+app.get("/", async (req, res) => {
+  res.send("Deployment successful; app is live")
+})
+
 app.get("/toppings", async (req, res) => {
   try {
     const filter = {}
@@ -44,7 +48,6 @@ app.post("/order", async (req, res) => {
 
     const newOrder = new PizzaOrder({ toppings, size })
     const savedOrder = await newOrder.save()
-    console.log(savedOrder)
 
     const totalPrice = savedOrder.totalPrice
 
