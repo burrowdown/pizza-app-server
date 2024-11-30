@@ -6,8 +6,6 @@ import Topping from "./models/Topping.js"
 import PizzaOrder from "./models/PizzaOrder.js"
 import { dbConnect } from "./db.js"
 
-const PORT = process.env.SERVER_PORT
-
 app.use(cors())
 app.use(express.json())
 
@@ -49,9 +47,13 @@ app.post("/order", async (req, res) => {
   }
 })
 
-app.listen(PORT, () => {
-  dbConnect()
-  console.log(`listening on port ${PORT}`)
-})
+export default async function handler(req, res) {
+  try {
+    await dbConnect()
+  } catch (error) {
+    console.error("Database connection failed:", error)
+    return res.status(500).json({ error: "Internal server error" })
+  }
 
-export default app
+  app(req, res)
+}
