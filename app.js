@@ -1,9 +1,13 @@
+import "dotenv/config"
 import express from "express"
 import cors from "cors"
 const app = express()
 import Topping from "./models/Topping.js"
 import PizzaSize from "./models/PizzaSize.js"
 import PizzaOrder from "./models/PizzaOrder.js"
+import { dbConnect } from "./db.js"
+
+const PORT = process.env.SERVER_PORT
 
 app.use(cors())
 app.use(express.json())
@@ -58,6 +62,11 @@ app.post("/order", async (req, res) => {
   } catch (err) {
     res.status(400).send({ message: err.message })
   }
+})
+
+app.listen(PORT, () => {
+  dbConnect()
+  console.log(`listening on port ${PORT}`)
 })
 
 export default app

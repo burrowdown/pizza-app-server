@@ -1,11 +1,13 @@
 {
   "name": "pizza-server",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.0.0",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "start": "node --watch server.js"
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "build": "no build step needed"
   },
   "keywords": [],
   "author": "",
