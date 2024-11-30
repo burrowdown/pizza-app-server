@@ -64,9 +64,6 @@ app.post("/order", async (req, res) => {
   }
 })
 
-app.listen(PORT, async () => {
-  await dbConnect()
-  console.log(`listening on port ${PORT}`)
-})
+await dbConnect()
 
 export default app
